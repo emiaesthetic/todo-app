@@ -1,4 +1,19 @@
-import {renderToDo} from './modules/render.js';
+import {renderToDo, renderTasks} from './modules/render.js';
+
+const data = {
+  'xcode': [
+    {
+      id: 1,
+      task: 'Buy elephant',
+      status: 'Process',
+    },
+    {
+      id: 2,
+      task: 'Buy milk',
+      status: 'Process',
+    }
+  ],
+};
 
 {
   const init = (selectorApp, userName) => {
@@ -11,7 +26,10 @@ import {renderToDo} from './modules/render.js';
       'justify-content-center',
       'flex-column',
     );
-    renderToDo(app);
+
+    const {list} = renderToDo(app);
+    renderTasks(list, data['xcode']);
+
   };
 
   window.todoInit = init;

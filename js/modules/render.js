@@ -1,5 +1,6 @@
 import {
   createTitle,
+  createRow,
   createTable,
   createForm,
 } from "./createElements.js";
@@ -7,15 +8,18 @@ import {
 export const renderToDo = (app) => {
   const title = createTitle();
   const {table, tableWrapper} = createTable();
-  const {form, btnAdd, btnReset} = createForm();
+  const {form} = createForm();
 
   app.append(title, form, tableWrapper);
 
   return {
-    thead: table.thead,
     list: table.tbody,
     form,
-    btnAdd,
-    btnReset,
   };
+};
+
+export const renderTasks = (elem, data) => {
+  const allRow = data.map(createRow);
+  elem.append(...allRow);
+  return allRow;
 };
