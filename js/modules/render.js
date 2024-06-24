@@ -3,12 +3,12 @@ import {
   createRow,
   createTable,
   createForm,
-} from "./createElements.js";
+} from './createElements.js';
 
 export const renderToDo = (app) => {
   const title = createTitle();
   const {table, tableWrapper} = createTable();
-  const {form} = createForm();
+  const form = createForm();
 
   app.append(title, form, tableWrapper);
 

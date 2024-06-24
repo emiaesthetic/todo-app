@@ -1,0 +1,12 @@
+.table {
+  counter-reset: number 0;
+}
+
+.table-light,
+.table-success {
+  counter-increment: number 1;
+}
+
+.task-id:before {
+  content: counter(number);
+}
