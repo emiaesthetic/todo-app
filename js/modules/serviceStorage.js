@@ -47,3 +47,15 @@ export const completeUserTask = (userName, taskID) => {
 
   setStorage('accounts', accounts);
 };
+
+export const editUserTask = (userName, taskID, newText) => {
+  const accounts = getStorage('accounts');
+  const userTasks = getUserTasks(userName);
+
+  accounts[userName] = userTasks.map((task) => {
+    task.desc = task.id === +taskID ? newText : task.desc;
+    return task;
+  });
+
+  setStorage('accounts', accounts);
+};

@@ -2,6 +2,7 @@ import {renderToDo, renderTasks} from './modules/render.js';
 import {getUserTasks} from './modules/serviceStorage.js';
 import {
   formControl,
+  editTaskControl,
   removeTaskControl,
   completeTaskControl,
 } from './modules/controls.js';
@@ -24,6 +25,7 @@ import {
     renderTasks(list, userTasks);
 
     formControl(form, list, userName);
+    editTaskControl(list, userName),
     removeTaskControl(list, userName);
     completeTaskControl(list, userName);
   };

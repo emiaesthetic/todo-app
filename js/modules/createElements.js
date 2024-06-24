@@ -14,7 +14,7 @@ export const createTitle = () => {
   return h3;
 };
 
-export const createRow = ({id, task, status}) => {
+export const createRow = ({id, desc, status}) => {
   const tr = document.createElement('tr');
   tr.className = status === 'Выполнена' ? 'table-success' : 'table-light';
   tr.dataset.id = id;
@@ -22,29 +22,37 @@ export const createRow = ({id, task, status}) => {
   const tdID = document.createElement('td');
   tdID.className = 'task-id';
 
-  const tdTask = document.createElement('td');
-  tdTask.className =
-    status === 'Выполнена' ? 'text-decoration-line-through' : 'task';
-  tdTask.textContent = task;
+  const tdDesc = document.createElement('td');
+  tdDesc.className =
+    status === 'Выполнена' ? 'text-decoration-line-through' : 'task-desc';
+  tdDesc.textContent = desc;
 
   const tdStatus = document.createElement('td');
   tdStatus.className = 'task-status';
   tdStatus.textContent = status;
 
-  const tdAction = document.createElement('td');
+  const btnEdit = createButton({
+    className: 'btn btn-primary me-3 edit',
+    type: 'button',
+    text: 'Редактировать',
+  });
+
   const btnDelete = createButton({
     className: 'btn btn-danger me-3 delete',
     type: 'button',
     text: 'Удалить',
   });
+
   const btnComplete = createButton({
     className: 'btn btn-success complete',
     type: 'button',
     text: 'Завершить',
   });
-  tdAction.append(btnDelete, btnComplete);
 
-  tr.append(tdID, tdTask, tdStatus, tdAction);
+  const tdAction = document.createElement('td');
+  tdAction.append(btnEdit, btnDelete, btnComplete);
+
+  tr.append(tdID, tdDesc, tdStatus, tdAction);
   return tr;
 };
 
@@ -91,7 +99,7 @@ export const createForm = () => {
         <input
           class="form-control"
           type="text"
-          name="task"
+          name="desc"
           placeholder="ввести задачу"
         >
       </label>

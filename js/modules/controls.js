@@ -2,6 +2,7 @@ import {createRow} from './createElements.js';
 import {
   generateID,
   addUserTask,
+  editUserTask,
   removeUserTask,
   completeUserTask,
 } from './serviceStorage.js';
@@ -31,7 +32,28 @@ export const formControl = (form, list, userName) => {
   });
 
   form.addEventListener('keyup', () => {
-    form.btnAdd.disabled = !form.task.value.trim();
+    form.btnAdd.disabled = !form.desc.value.trim();
+  });
+};
+
+export const editTaskControl = (list, userName) => {
+  list.addEventListener('click', (e) => {
+    const target = e.target;
+
+    if (target.closest('.edit')) {
+      const row = target.closest('tr');
+      const desc = row.querySelector('.task-desc');
+
+      if (desc.contentEditable === 'true') {
+        desc.contentEditable = false;
+        target.textContent = 'Редактировать';
+        editUserTask(userName, row.dataset.id, desc.textContent);
+      } else {
+        console.log(desc);
+        desc.contentEditable = true;
+        target.textContent = 'Сохранить';
+      }
+    }
   });
 };
 
@@ -59,8 +81,8 @@ export const completeTaskControl = (list, userName) => {
       const row = target.closest('tr');
       row.className = 'table-success';
 
-      const task = row.querySelector('.task');
-      task.className = 'text-decoration-line-through';
+      const desc = row.querySelector('.task-desc');
+      desc.className = 'text-decoration-line-through';
 
       const status = row.querySelector('.task-status');
       status.textContent = 'Выполнена';
