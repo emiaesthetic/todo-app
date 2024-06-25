@@ -87,6 +87,10 @@ export const completeTaskControl = (list, userName) => {
       const status = row.querySelector('.task-status');
       status.textContent = 'Выполнена';
 
+      row.querySelector('.edit').remove();
+      row.querySelector('.complete').remove();
+      row.querySelector('.delete').classList.add('btn-centered');
+
       completeUserTask(userName, row.dataset.id);
     }
   });

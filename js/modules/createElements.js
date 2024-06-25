@@ -50,7 +50,14 @@ export const createRow = ({id, desc, status, priority}) => {
   });
 
   const tdAction = document.createElement('td');
-  tdAction.append(btnEdit, btnDelete, btnComplete);
+  tdAction.className = 'text-center';
+
+  if (status !== 'Выполнена') {
+    tdAction.append(btnEdit, btnDelete, btnComplete);
+  } else {
+    btnDelete.classList.add('w-100');
+    tdAction.append(btnDelete);
+  }
 
   tr.append(tdID, tdDesc, tdStatus, tdAction);
   return tr;
