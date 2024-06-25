@@ -3,10 +3,16 @@
 }
 
 .table-light,
+.table-warning,
+.table-danger,
 .table-success {
   counter-increment: number 1;
 }
 
 .task-id:before {
   content: counter(number);
+}
+
+.form-select {
+  max-width: max-content;
 }

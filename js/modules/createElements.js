@@ -14,9 +14,9 @@ export const createTitle = () => {
   return h3;
 };
 
-export const createRow = ({id, desc, status}) => {
+export const createRow = ({id, desc, status, priority}) => {
   const tr = document.createElement('tr');
-  tr.className = status === 'Выполнена' ? 'table-success' : 'table-light';
+  tr.className = status === 'Выполнена' ? 'table-success' : priority;
   tr.dataset.id = id;
 
   const tdID = document.createElement('td');
@@ -103,6 +103,11 @@ export const createForm = () => {
           placeholder="ввести задачу"
         >
       </label>
+      <select class="form-select me-3" name="priority">
+        <option value="table-light" selected>Обычная</option>
+        <option value="table-warning">Важная</option>
+        <option value="table-danger">Срочная</option>
+      </select>
     `,
   );
 

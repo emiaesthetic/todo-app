@@ -31,7 +31,7 @@ export const formControl = (form, list, userName) => {
     form.btnAdd.disabled = true;
   });
 
-  form.addEventListener('keyup', () => {
+  form.addEventListener('input', () => {
     form.btnAdd.disabled = !form.desc.value.trim();
   });
 };
