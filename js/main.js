@@ -1,14 +1,8 @@
-import {renderToDo, renderTasks} from './modules/render.js';
-import {getUserTasks} from './modules/serviceStorage.js';
-import {
-  formControl,
-  editTaskControl,
-  removeTaskControl,
-  completeTaskControl,
-} from './modules/controls.js';
+import {renderToDo} from './modules/render.js';
+import {loginFormControl} from './modules/controls.js';
 
 {
-  const init = (selectorApp, userName) => {
+  const init = (selectorApp) => {
     const app = document.querySelector(selectorApp);
     app.classList.add(
         'vh-100',
@@ -19,15 +13,8 @@ import {
         'flex-column',
     );
 
-    const {list, form} = renderToDo(app);
-
-    const userTasks = getUserTasks(userName);
-    renderTasks(list, userTasks);
-
-    formControl(form, list, userName);
-    editTaskControl(list, userName),
-    removeTaskControl(list, userName);
-    completeTaskControl(list, userName);
+    const renderApp = renderToDo(app);
+    loginFormControl(renderApp);
   };
 
   window.todoInit = init;

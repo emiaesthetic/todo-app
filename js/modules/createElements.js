@@ -55,7 +55,6 @@ export const createRow = ({id, desc, status, priority}) => {
   if (status !== 'Выполнена') {
     tdAction.append(btnEdit, btnDelete, btnComplete);
   } else {
-    btnDelete.classList.add('w-100');
     tdAction.append(btnDelete);
   }
 
@@ -136,4 +135,42 @@ export const createForm = () => {
   form.append(btnAdd, btnReset);
 
   return form;
+};
+
+export const createLoginForm = () => {
+  const overlay = document.createElement('div');
+  overlay.classList.add('form-overlay', 'is-visible');
+
+  const loginForm = document.createElement('form');
+  loginForm.classList.add('form', 'form-centered');
+  loginForm.insertAdjacentHTML(
+      'afterbegin',
+      `
+        <h2 class="form-title mb-3">Авторизация</h2>
+        <div class="form-group">
+          <input
+            class="form-input w-100 mb-3"
+            name="user-name"
+            type="text"
+            placeholder="Введите логин..."
+            autofocus
+            required
+          >
+        </div>
+  `,
+  );
+
+  const btnLogin = createButton({
+    className: 'btn btn-primary me-3 w-75',
+    type: 'submit',
+    text: 'Войти',
+  });
+
+  loginForm.append(btnLogin);
+  overlay.append(loginForm);
+
+  return {
+    overlay,
+    loginForm,
+  };
 };
