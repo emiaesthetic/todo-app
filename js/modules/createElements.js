@@ -137,13 +137,13 @@ export const createForm = () => {
   return form;
 };
 
-export const createLoginForm = () => {
+export const createLogin = () => {
   const overlay = document.createElement('div');
-  overlay.classList.add('form-overlay', 'is-visible');
+  overlay.classList.add('form-overlay');
 
-  const loginForm = document.createElement('form');
-  loginForm.classList.add('form', 'form-centered');
-  loginForm.insertAdjacentHTML(
+  const login = document.createElement('form');
+  login.classList.add('form', 'form-centered');
+  login.insertAdjacentHTML(
       'afterbegin',
       `
         <h2 class="form-title mb-3">Авторизация</h2>
@@ -166,11 +166,19 @@ export const createLoginForm = () => {
     text: 'Войти',
   });
 
-  loginForm.append(btnLogin);
-  overlay.append(loginForm);
+  login.append(btnLogin);
+  overlay.append(login);
 
   return {
     overlay,
-    loginForm,
+    login,
   };
+};
+
+export const openModal = (overlay) => {
+  overlay.classList.add('is-visible');
+};
+
+export const closeModal = (overlay) => {
+  overlay.classList.remove('is-visible');
 };

@@ -1,5 +1,12 @@
-import {renderToDo} from './modules/render.js';
-import {loginFormControl} from './modules/controls.js';
+import {getUserTasks} from './modules/serviceStorage.js';
+import {renderToDo, renderTasks} from './modules/render.js';
+import {openModal, closeModal} from './modules/createElements.js';
+import {
+  addTaskControl,
+  editTaskControl,
+  removeTaskControl,
+  completeTaskControl,
+} from './modules/controls.js';
 
 {
   const init = (selectorApp) => {
@@ -13,8 +20,25 @@ import {loginFormControl} from './modules/controls.js';
         'flex-column',
     );
 
-    const renderApp = renderToDo(app);
-    loginFormControl(renderApp);
+    const {overlayLogin, login, form, list} = renderToDo(app);
+    openModal(overlayLogin);
+
+    login.addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      const formData = new FormData(e.target);
+      const userName = formData.get('user-name');
+
+      const userTasks = getUserTasks(userName);
+      renderTasks(list, userTasks);
+
+      addTaskControl(form, list, userName);
+      editTaskControl(list, userName),
+      removeTaskControl(list, userName);
+      completeTaskControl(list, userName);
+
+      closeModal(overlayLogin);
+    });
   };
 
   window.todoInit = init;

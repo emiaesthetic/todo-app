@@ -1,26 +1,24 @@
 import {createRow} from './createElements.js';
 import {
-  generateID,
+  getNextTaskID,
   addUserTask,
   editUserTask,
   removeUserTask,
   completeUserTask,
 } from './serviceStorage.js';
-import {getUserTasks} from './serviceStorage.js';
-import {renderTasks} from './render.js';
 
 const addTaskPage = (list, task) => {
   const taskRow = createRow(task);
   list.append(taskRow);
 };
 
-export const formControl = (form, list, userName) => {
+export const addTaskControl = (form, list, userName) => {
   form.addEventListener('submit', (e) => {
     e.preventDefault();
 
     const formData = new FormData(e.target);
     const newTask = Object.fromEntries(formData);
-    newTask.id = generateID(userName);
+    newTask.id = getNextTaskID(userName);
 
     addUserTask(userName, newTask);
     addTaskPage(list, newTask);
@@ -95,30 +93,5 @@ export const completeTaskControl = (list, userName) => {
 
       completeUserTask(userName, row.dataset.id);
     }
-  });
-};
-
-const closeModal = (overlayForm) => {
-  overlayForm.classList.remove('is-visible');
-};
-
-export const loginFormControl = ({overlayForm, list, loginForm, form}) => {
-  loginForm.addEventListener('submit', (e) => {
-    e.preventDefault();
-
-    const formData = new FormData(e.target);
-    const data = Object.fromEntries(formData);
-    const userName = data['user-name'];
-
-    const userTasks = getUserTasks(userName);
-    renderTasks(list, userTasks);
-
-    formControl(form, list, userName);
-    editTaskControl(list, userName),
-    removeTaskControl(list, userName);
-    completeTaskControl(list, userName);
-
-    loginForm.reset();
-    closeModal(overlayForm);
   });
 };

@@ -9,11 +9,9 @@ export const getUserTasks = (userName) => {
   return accounts[userName] || [];
 };
 
-export const generateID = (userName) => {
+export const getNextTaskID = (userName) => {
   const userTasks = getUserTasks(userName);
-  const allTaskID = userTasks.map((task) => +task.id);
-
-  return allTaskID.length ? Math.max(...allTaskID) + 1 : 1;
+  return userTasks.length ? userTasks.at(-1).id + 1 : 1;
 };
 
 export const addUserTask = (userName, task) => {

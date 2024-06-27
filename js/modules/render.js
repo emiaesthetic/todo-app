@@ -3,21 +3,21 @@ import {
   createRow,
   createTable,
   createForm,
-  createLoginForm,
+  createLogin,
 } from './createElements.js';
 
 export const renderToDo = (app) => {
   const title = createTitle();
   const {table, tableWrapper} = createTable();
   const form = createForm();
-  const {overlay, loginForm} = createLoginForm();
+  const {overlay, login} = createLogin();
 
   app.append(title, form, tableWrapper, overlay);
 
   return {
-    overlayForm: overlay,
+    overlayLogin: overlay,
     list: table.tbody,
-    loginForm,
+    login,
     form,
   };
 };
