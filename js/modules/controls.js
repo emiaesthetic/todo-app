@@ -5,6 +5,7 @@ import {
   editUserTask,
   removeUserTask,
   completeUserTask,
+  getTaskPriority,
 } from './serviceStorage.js';
 
 const addTaskPage = (list, task) => {
@@ -79,17 +80,23 @@ export const completeTaskControl = (list, userName) => {
 
     if (target.closest('.complete')) {
       const row = target.closest('tr');
-      row.className = 'table-success';
-
       const desc = row.querySelector('.task-desc');
-      desc.className = 'text-decoration-line-through';
-
       const status = row.querySelector('.task-status');
-      status.textContent = 'Выполнена';
+      const btnEdit = row.querySelector('.edit');
+      const btnComplete = row.querySelector('.complete');
 
-      row.querySelector('.edit').remove();
-      row.querySelector('.complete').remove();
-      row.querySelector('.delete').classList.add('btn-centered');
+      desc.classList.toggle('text-decoration-line-through');
+      if (btnComplete.textContent === 'Завершить') {
+        row.className = 'table-success';
+        status.textContent = 'Выполнена';
+        btnEdit.disabled = true;
+        btnComplete.textContent = 'Возобновить';
+      } else {
+        row.className = getTaskPriority(userName, row.dataset.id);
+        status.textContent = 'В процессе';
+        btnEdit.disabled = false;
+        btnComplete.textContent = 'Завершить';
+      }
 
       completeUserTask(userName, row.dataset.id);
     }

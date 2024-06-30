@@ -16,26 +16,29 @@ export const createTitle = () => {
 
 export const createRow = ({id, desc, status, priority}) => {
   const tr = document.createElement('tr');
-  tr.className = status === 'Выполнена' ? 'table-success' : priority;
+  tr.className = status ? 'table-success' : priority;
   tr.dataset.id = id;
 
   const tdID = document.createElement('td');
   tdID.className = 'task-id';
 
   const tdDesc = document.createElement('td');
-  tdDesc.className =
-    status === 'Выполнена' ? 'text-decoration-line-through' : 'task-desc';
+  tdDesc.className = 'task-desc';
+  if (status) {
+    tdDesc.classList.add('text-decoration-line-through');
+  }
   tdDesc.textContent = desc;
 
   const tdStatus = document.createElement('td');
   tdStatus.className = 'task-status';
-  tdStatus.textContent = status;
+  tdStatus.textContent = status ? 'Выполнена' : 'В процессе';
 
   const btnEdit = createButton({
     className: 'btn btn-primary me-3 edit',
     type: 'button',
     text: 'Редактировать',
   });
+  btnEdit.disabled = status;
 
   const btnDelete = createButton({
     className: 'btn btn-danger me-3 delete',
@@ -46,17 +49,11 @@ export const createRow = ({id, desc, status, priority}) => {
   const btnComplete = createButton({
     className: 'btn btn-success complete',
     type: 'button',
-    text: 'Завершить',
+    text: status ? 'Возобновить' : 'Завершить',
   });
 
   const tdAction = document.createElement('td');
-  tdAction.className = 'text-center';
-
-  if (status !== 'Выполнена') {
-    tdAction.append(btnEdit, btnDelete, btnComplete);
-  } else {
-    tdAction.append(btnDelete);
-  }
+  tdAction.append(btnEdit, btnDelete, btnComplete);
 
   tr.append(tdID, tdDesc, tdStatus, tdAction);
   return tr;

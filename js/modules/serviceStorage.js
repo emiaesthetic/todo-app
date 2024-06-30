@@ -18,7 +18,7 @@ export const addUserTask = (userName, task) => {
   const accounts = getStorage('accounts');
   const userTasks = getUserTasks(userName);
 
-  task.status = 'В процессе';
+  task.status = false;
   userTasks.push(task);
   accounts[userName] = userTasks;
 
@@ -39,11 +39,17 @@ export const completeUserTask = (userName, taskID) => {
   const userTasks = getUserTasks(userName);
 
   accounts[userName] = userTasks.map((task) => {
-    task.status = task.id === +taskID ? 'Выполнена' : task.status;
+    task.status = task.id === +taskID ? !task.status : task.status;
     return task;
   });
 
   setStorage('accounts', accounts);
+};
+
+export const getTaskPriority = (userName, taskID) => {
+  const userTasks = getUserTasks(userName);
+  const task = userTasks.find(task => task.id === +taskID);
+  return task.priority;
 };
 
 export const editUserTask = (userName, taskID, newText) => {
