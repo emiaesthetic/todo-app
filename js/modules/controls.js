@@ -44,16 +44,12 @@ export const editTaskControl = (list, userName) => {
     if (target.closest('.edit')) {
       const row = target.closest('tr');
       const desc = row.querySelector('.task-desc');
+      desc.contentEditable = 'true';
 
-      if (desc.contentEditable === 'true') {
+      desc.addEventListener('blur', () => {
         desc.contentEditable = false;
-        target.textContent = 'Редактировать';
         editUserTask(userName, row.dataset.id, desc.textContent);
-      } else {
-        console.log(desc);
-        desc.contentEditable = true;
-        target.textContent = 'Сохранить';
-      }
+      });
     }
   });
 };
