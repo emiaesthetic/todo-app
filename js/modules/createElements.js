@@ -7,9 +7,9 @@ const createButton = ({className, type, text}) => {
   return button;
 };
 
-export const createTitle = () => {
+export const createTitle = (userName) => {
   const h3 = document.createElement('h3');
-  h3.textContent = 'Todo App';
+  h3.textContent = `Hi, ${userName}. Your to-do list: `;
 
   return h3;
 };

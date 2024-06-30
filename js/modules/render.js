@@ -1,18 +1,17 @@
 import {
-  createTitle,
   createRow,
   createTable,
   createForm,
   createLogin,
+  createTitle,
 } from './createElements.js';
 
 export const renderToDo = (app) => {
-  const title = createTitle();
   const {table, tableWrapper} = createTable();
   const form = createForm();
   const {overlay, login} = createLogin();
 
-  app.append(title, form, tableWrapper, overlay);
+  app.append(form, tableWrapper, overlay);
 
   return {
     overlayLogin: overlay,
@@ -26,4 +25,9 @@ export const renderTasks = (elem, data) => {
   const allRow = data.map(createRow);
   elem.append(...allRow);
   return allRow;
+};
+
+export const greetUser = (app, userName) => {
+  const title = createTitle(userName);
+  app.prepend(title);
 };

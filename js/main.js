@@ -1,6 +1,6 @@
 import {getUserTasks} from './modules/serviceStorage.js';
-import {renderToDo, renderTasks} from './modules/render.js';
 import {openModal, closeModal} from './modules/createElements.js';
+import {renderToDo, renderTasks, greetUser} from './modules/render.js';
 import {
   addTaskControl,
   editTaskControl,
@@ -31,6 +31,7 @@ import {
 
       const userTasks = getUserTasks(userName);
       renderTasks(list, userTasks);
+      greetUser(app, userName);
 
       addTaskControl(form, list, userName);
       editTaskControl(list, userName),
