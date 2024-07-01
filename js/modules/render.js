@@ -3,20 +3,24 @@ import {
   createTable,
   createForm,
   createLogin,
+  createConfirm,
   createTitle,
 } from './createElements.js';
 
 export const renderToDo = (app) => {
   const {table, tableWrapper} = createTable();
   const form = createForm();
-  const {overlay, login} = createLogin();
+  const {loginOverlay, loginForm} = createLogin();
+  const {confirmOverlay, confirmForm} = createConfirm();
 
-  app.append(form, tableWrapper, overlay);
+  app.append(form, tableWrapper, loginOverlay, confirmOverlay);
 
   return {
-    overlayLogin: overlay,
     list: table.tbody,
-    login,
+    confirmOverlay,
+    loginOverlay,
+    confirmForm,
+    loginForm,
     form,
   };
 };

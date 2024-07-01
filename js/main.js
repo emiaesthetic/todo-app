@@ -20,10 +20,17 @@ import {
         'flex-column',
     );
 
-    const {overlayLogin, login, form, list} = renderToDo(app);
-    openModal(overlayLogin);
+    const {
+      list,
+      confirmOverlay,
+      loginOverlay,
+      confirmForm,
+      loginForm,
+      form,
+    } = renderToDo(app);
+    openModal(loginOverlay);
 
-    login.addEventListener('submit', (e) => {
+    loginForm.addEventListener('submit', (e) => {
       e.preventDefault();
 
       const formData = new FormData(e.target);
@@ -35,10 +42,10 @@ import {
 
       addTaskControl(form, list, userName);
       editTaskControl(list, userName),
-      removeTaskControl(list, userName);
       completeTaskControl(list, userName);
+      removeTaskControl(list, userName, confirmOverlay, confirmForm);
 
-      closeModal(overlayLogin);
+      closeModal(loginOverlay);
     });
   };
 

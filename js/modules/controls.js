@@ -1,4 +1,4 @@
-import {createRow} from './createElements.js';
+import {createRow, openModal, closeModal} from './createElements.js';
 import {
   getNextTaskID,
   addUserTask,
@@ -54,18 +54,30 @@ export const editTaskControl = (list, userName) => {
   });
 };
 
-export const removeTaskControl = (list, userName) => {
+export const removeTaskControl = (
+    list,
+    userName,
+    confirmOverlay,
+    confirmForm,
+) => {
   list.addEventListener('click', (e) => {
     const target = e.target;
 
     if (target.closest('.delete')) {
-      const userAnswer = confirm('Вы точно хотите удалить задачу?');
+      openModal(confirmOverlay);
 
-      if (userAnswer) {
-        const row = target.closest('tr');
-        removeUserTask(userName, row.dataset.id);
-        row.remove();
-      }
+      confirmForm.addEventListener('click', (e) => {
+        e.preventDefault();
+        const userAnswer = e.target.closest('.apply');
+
+        if (userAnswer) {
+          const row = target.closest('tr');
+          removeUserTask(userName, row.dataset.id);
+          row.remove();
+        }
+
+        closeModal(confirmOverlay);
+      });
     }
   });
 };

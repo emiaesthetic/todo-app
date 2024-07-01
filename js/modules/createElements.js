@@ -138,9 +138,9 @@ export const createLogin = () => {
   const overlay = document.createElement('div');
   overlay.classList.add('form-overlay');
 
-  const login = document.createElement('form');
-  login.classList.add('form', 'form-centered');
-  login.insertAdjacentHTML(
+  const form = document.createElement('form');
+  form.classList.add('form');
+  form.insertAdjacentHTML(
       'afterbegin',
       `
         <h2 class="form-title mb-3">Авторизация</h2>
@@ -163,12 +163,52 @@ export const createLogin = () => {
     text: 'Войти',
   });
 
-  login.append(btnLogin);
-  overlay.append(login);
+  form.append(btnLogin);
+  overlay.append(form);
 
   return {
-    overlay,
-    login,
+    loginOverlay: overlay,
+    loginForm: form,
+  };
+};
+
+export const createConfirm = () => {
+  const overlay = document.createElement('div');
+  overlay.classList.add('form-overlay');
+
+  const form = document.createElement('form');
+  form.classList.add('form');
+  form.insertAdjacentHTML(
+      'afterbegin',
+      `
+        <p class="fs-4">
+          Вы действительно хотите удалить задачу?
+        </p>
+  `,
+  );
+
+  const btnGroup = document.createElement('div');
+  btnGroup.classList.add('d-flex', 'justify-content-around');
+
+  const btnApply = createButton({
+    className: 'btn btn-primary apply',
+    type: 'submit',
+    text: 'Да',
+  });
+
+  const btnCancel = createButton({
+    className: 'btn btn-danger cancel',
+    type: 'button',
+    text: 'Нет',
+  });
+
+  btnGroup.append(btnCancel, btnApply);
+  form.append(btnGroup);
+  overlay.append(form);
+
+  return {
+    confirmOverlay: overlay,
+    confirmForm: form,
   };
 };
 
