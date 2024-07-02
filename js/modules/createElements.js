@@ -9,7 +9,7 @@ const createButton = ({className, type, text}) => {
 
 export const createTitle = (userName) => {
   const h3 = document.createElement('h3');
-  h3.textContent = `Hi, ${userName}. Your to-do list: `;
+  h3.textContent = `Приветствую, ${userName}. Ваш список дел: `;
 
   return h3;
 };

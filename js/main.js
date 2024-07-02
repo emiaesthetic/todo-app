@@ -35,10 +35,10 @@ import {
 
       const formData = new FormData(e.target);
       const userName = formData.get('user-name');
+      greetUser(app, userName);
 
       const userTasks = getUserTasks(userName);
       renderTasks(list, userTasks);
-      greetUser(app, userName);
 
       addTaskControl(form, list, userName);
       editTaskControl(list, userName),
