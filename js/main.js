@@ -47,6 +47,10 @@ import {
 
       closeModal(loginOverlay);
     });
+
+    loginForm.addEventListener('input', () => {
+      loginForm.btnLogin.disabled = !loginForm['user-name'].value.trim();
+    });
   };
 
   window.todoInit = init;

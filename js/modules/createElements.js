@@ -162,8 +162,11 @@ export const createLogin = () => {
     type: 'submit',
     text: 'Войти',
   });
+  btnLogin.disabled = true;
 
   form.append(btnLogin);
+  form.btnLogin = btnLogin;
+
   overlay.append(form);
 
   return {
